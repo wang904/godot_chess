@@ -72,6 +72,59 @@ func check_knight(clicked_cell) -> bool:
 			return true
 	return false
 
+func check_rock(clicked_cell) -> bool:
+	if last_piece_position.x == clicked_cell.x:
+		for i in range(min(last_piece_position.y,clicked_cell.y) + 1,max(last_piece_position.y,clicked_cell.y)):
+			print(i)
+			if has_piece(Vector2i(clicked_cell.x,i)):
+				return false
+		return true
+	elif last_piece_position.y == clicked_cell.y:
+		for i in range(min(last_piece_position.x,clicked_cell.x) + 1,max(last_piece_position.x,clicked_cell.x)):
+			if has_piece(Vector2i(i,clicked_cell.y)):
+				return false
+		return true	
+	return false
+
+func check_bishop(clicked_cell) -> bool:
+	var x = last_piece_position.x
+	var y = last_piece_position.y
+	while x <= 7 and y <= 7:
+		x += 1
+		y += 1
+		if x == clicked_cell.x and y == clicked_cell.y:
+			return true
+		if has_piece(Vector2(x,y)):
+			break
+	x = last_piece_position.x
+	y = last_piece_position.y
+	while x >= 0 and y >= 0:
+		x -= 1
+		y -= 1
+		if x == clicked_cell.x and y == clicked_cell.y:
+			return true
+		if has_piece(Vector2(x,y)):
+			break
+	x = last_piece_position.x
+	y = last_piece_position.y
+	while x <= 7 and y >= 0:
+		x += 1
+		y -= 1
+		if x == clicked_cell.x and y == clicked_cell.y:
+			return true
+		if has_piece(Vector2(x,y)):
+			break
+	x = last_piece_position.x
+	y = last_piece_position.y
+	while x >= 0 and y <= 7:
+		x -= 1
+		y += 1
+		if x == clicked_cell.x and y == clicked_cell.y:
+			return true
+		if has_piece(Vector2(x,y)):
+			break
+	return false
+
 #是否可以移动
 func can_move(clicked_cell) -> bool:
 	var cell_id : Cells = get_cell_source_id(0,clicked_cell)
@@ -94,6 +147,15 @@ func can_move(clicked_cell) -> bool:
 				return false
 		Cells.WHITE_KNIGHT,Cells.BLACK_KNIGHT:
 			if not check_knight(clicked_cell):
+				return false
+		Cells.WHITE_ROCK,Cells.BLACK_ROCK:
+			if not check_rock(clicked_cell):
+				return false
+		Cells.WHITE_BISHOP,Cells.BLACK_BISHOP:
+			if not check_bishop(clicked_cell):
+				return false
+		Cells.WHITE_QUEEN,Cells.BLACK_QUEEN:
+			if not check_bishop(clicked_cell) and not check_rock(clicked_cell):
 				return false
 	return true
 
