@@ -1,9 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://bbqelh27lv8xh"]
+[gd_scene load_steps=35 format=3 uid="uid://bbqelh27lv8xh"]
 
 [ext_resource type="Texture2D" uid="uid://clxhh1pdc6t28" path="res://img/alpha/bB.png" id="1_m7wru"]
+[ext_resource type="Texture2D" uid="uid://bptocu84k35ha" path="res://img/chessboard/green.png" id="1_vf4ta"]
+[ext_resource type="Texture2D" uid="uid://de1ealujktjhl" path="res://img/chessboard/white.png" id="2_u5bih"]
 [ext_resource type="Texture2D" uid="uid://kl6fgaathh31" path="res://img/alpha/bK.png" id="2_vfm8j"]
 [ext_resource type="Texture2D" uid="uid://crajtqedkwy26" path="res://img/alpha/wQ.png" id="3_2p13b"]
+[ext_resource type="Texture2D" uid="uid://b3qi0670ij2s0" path="res://img/chessboard/yellow.png" id="3_grl3a"]
 [ext_resource type="Texture2D" uid="uid://d3i45eekty43j" path="res://img/alpha/wR.png" id="4_3yo1x"]
+[ext_resource type="Script" path="res://script/chessboard/chessboard.gd" id="4_wf3jf"]
 [ext_resource type="Texture2D" uid="uid://doddld36q835n" path="res://img/alpha/bN.png" id="5_0bi58"]
 [ext_resource type="Texture2D" uid="uid://nu1p2qciy1v3" path="res://img/alpha/bP.png" id="6_pfjl4"]
 [ext_resource type="Texture2D" uid="uid://ceuydtwpdqtb6" path="res://img/alpha/bQ.png" id="7_aiqdd"]
@@ -12,6 +16,28 @@
 [ext_resource type="Texture2D" uid="uid://lt4e7ohgia0j" path="res://img/alpha/wK.png" id="10_w0sjj"]
 [ext_resource type="Texture2D" uid="uid://dhxta4ir2ebns" path="res://img/alpha/wN.png" id="11_0h5g8"]
 [ext_resource type="Texture2D" uid="uid://qc6868550a5l" path="res://img/alpha/wP.png" id="12_bwr0u"]
+[ext_resource type="Script" path="res://script/chessboard/pieces.gd" id="17_8pd8q"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m20je"]
+texture = ExtResource("1_vf4ta")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fjfmj"]
+texture = ExtResource("2_u5bih")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eatv0"]
+texture = ExtResource("3_grl3a")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_o0t1q"]
+tile_size = Vector2i(80, 80)
+sources/0 = SubResource("TileSetAtlasSource_m20je")
+sources/1 = SubResource("TileSetAtlasSource_fjfmj")
+sources/2 = SubResource("TileSetAtlasSource_eatv0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0yja"]
 texture = ExtResource("1_m7wru")
@@ -90,7 +116,14 @@ sources/11 = SubResource("TileSetAtlasSource_i6ia4")
 
 [node name="chessboard" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="chessboard" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_o0t1q")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 2, 1, 0, 4, 1, 0, 6, 1, 0, 65537, 1, 0, 65539, 1, 0, 65541, 1, 0, 65543, 1, 0, 131072, 1, 0, 131074, 1, 0, 131076, 1, 0, 131078, 1, 0, 196609, 1, 0, 196611, 1, 0, 196613, 1, 0, 262148, 1, 0, 327685, 1, 0, 393222, 1, 0, 458759, 1, 0, 262150, 1, 0, 196615, 1, 0, 262144, 1, 0, 262146, 1, 0, 327681, 1, 0, 327683, 1, 0, 327687, 1, 0, 393216, 1, 0, 393218, 1, 0, 393220, 1, 0, 458753, 1, 0, 458755, 1, 0, 458757, 1, 0, 1, 0, 0, 65538, 0, 0, 3, 0, 0, 65540, 0, 0, 5, 0, 0, 65542, 0, 0, 7, 0, 0, 131079, 0, 0, 196614, 0, 0, 262151, 0, 0, 327686, 0, 0, 393223, 0, 0, 458758, 0, 0, 393221, 0, 0, 327684, 0, 0, 262149, 0, 0, 196612, 0, 0, 131077, 0, 0, 131075, 0, 0, 196610, 0, 0, 131073, 0, 0, 196608, 0, 0, 262145, 0, 0, 262147, 0, 0, 327682, 0, 0, 327680, 0, 0, 393217, 0, 0, 458752, 0, 0, 458754, 0, 0, 393219, 0, 0, 458756, 0, 0, 65536, 0, 0)
+script = ExtResource("4_wf3jf")
+
+[node name="pieces" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_tougy")
 format = 2
 layer_0/tile_data = PackedInt32Array(4, 1, 0, 2, 0, 0, 5, 0, 0, 1, 2, 0, 6, 2, 0, 65536, 3, 0, 65537, 3, 0, 65538, 3, 0, 65539, 3, 0, 65540, 3, 0, 65541, 3, 0, 65542, 3, 0, 65543, 3, 0, 3, 4, 0, 0, 5, 0, 7, 5, 0, 458754, 6, 0, 458757, 6, 0, 458756, 7, 0, 458753, 8, 0, 458758, 8, 0, 393216, 9, 0, 393217, 9, 0, 393218, 9, 0, 393220, 9, 0, 393219, 9, 0, 393221, 9, 0, 393222, 9, 0, 393223, 9, 0, 458755, 10, 0, 458752, 11, 0, 458759, 11, 0)
+script = ExtResource("17_8pd8q")
