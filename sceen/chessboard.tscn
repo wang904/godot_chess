@@ -1,0 +1,96 @@
+[gd_scene load_steps=26 format=3 uid="uid://bbqelh27lv8xh"]
+
+[ext_resource type="Texture2D" uid="uid://clxhh1pdc6t28" path="res://img/alpha/bB.png" id="1_m7wru"]
+[ext_resource type="Texture2D" uid="uid://kl6fgaathh31" path="res://img/alpha/bK.png" id="2_vfm8j"]
+[ext_resource type="Texture2D" uid="uid://crajtqedkwy26" path="res://img/alpha/wQ.png" id="3_2p13b"]
+[ext_resource type="Texture2D" uid="uid://d3i45eekty43j" path="res://img/alpha/wR.png" id="4_3yo1x"]
+[ext_resource type="Texture2D" uid="uid://doddld36q835n" path="res://img/alpha/bN.png" id="5_0bi58"]
+[ext_resource type="Texture2D" uid="uid://nu1p2qciy1v3" path="res://img/alpha/bP.png" id="6_pfjl4"]
+[ext_resource type="Texture2D" uid="uid://ceuydtwpdqtb6" path="res://img/alpha/bQ.png" id="7_aiqdd"]
+[ext_resource type="Texture2D" uid="uid://ta2yd2un86ti" path="res://img/alpha/bR.png" id="8_xfena"]
+[ext_resource type="Texture2D" uid="uid://c7ishfg2625gs" path="res://img/alpha/wB.png" id="9_ng05l"]
+[ext_resource type="Texture2D" uid="uid://lt4e7ohgia0j" path="res://img/alpha/wK.png" id="10_w0sjj"]
+[ext_resource type="Texture2D" uid="uid://dhxta4ir2ebns" path="res://img/alpha/wN.png" id="11_0h5g8"]
+[ext_resource type="Texture2D" uid="uid://qc6868550a5l" path="res://img/alpha/wP.png" id="12_bwr0u"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0yja"]
+texture = ExtResource("1_m7wru")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dgbp"]
+texture = ExtResource("2_vfm8j")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pr7dy"]
+texture = ExtResource("3_2p13b")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6ia4"]
+texture = ExtResource("4_3yo1x")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lw836"]
+texture = ExtResource("5_0bi58")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pdrtj"]
+texture = ExtResource("6_pfjl4")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48esl"]
+texture = ExtResource("7_aiqdd")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s1y6k"]
+texture = ExtResource("8_xfena")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w16rb"]
+texture = ExtResource("9_ng05l")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6pf4u"]
+texture = ExtResource("10_w0sjj")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6my24"]
+texture = ExtResource("11_0h5g8")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wqys8"]
+texture = ExtResource("12_bwr0u")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tougy"]
+tile_size = Vector2i(80, 80)
+sources/0 = SubResource("TileSetAtlasSource_a0yja")
+sources/1 = SubResource("TileSetAtlasSource_3dgbp")
+sources/2 = SubResource("TileSetAtlasSource_lw836")
+sources/3 = SubResource("TileSetAtlasSource_pdrtj")
+sources/4 = SubResource("TileSetAtlasSource_48esl")
+sources/5 = SubResource("TileSetAtlasSource_s1y6k")
+sources/6 = SubResource("TileSetAtlasSource_w16rb")
+sources/7 = SubResource("TileSetAtlasSource_6pf4u")
+sources/8 = SubResource("TileSetAtlasSource_6my24")
+sources/9 = SubResource("TileSetAtlasSource_wqys8")
+sources/10 = SubResource("TileSetAtlasSource_pr7dy")
+sources/11 = SubResource("TileSetAtlasSource_i6ia4")
+
+[node name="chessboard" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_tougy")
+format = 2
+layer_0/tile_data = PackedInt32Array(4, 1, 0, 2, 0, 0, 5, 0, 0, 1, 2, 0, 6, 2, 0, 65536, 3, 0, 65537, 3, 0, 65538, 3, 0, 65539, 3, 0, 65540, 3, 0, 65541, 3, 0, 65542, 3, 0, 65543, 3, 0, 3, 4, 0, 0, 5, 0, 7, 5, 0, 458754, 6, 0, 458757, 6, 0, 458756, 7, 0, 458753, 8, 0, 458758, 8, 0, 393216, 9, 0, 393217, 9, 0, 393218, 9, 0, 393220, 9, 0, 393219, 9, 0, 393221, 9, 0, 393222, 9, 0, 393223, 9, 0, 458755, 10, 0, 458752, 11, 0, 458759, 11, 0)
