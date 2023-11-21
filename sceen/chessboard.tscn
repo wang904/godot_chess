@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dhxta4ir2ebns" path="res://img/alpha/wN.png" id="11_0h5g8"]
 [ext_resource type="Texture2D" uid="uid://qc6868550a5l" path="res://img/alpha/wP.png" id="12_bwr0u"]
 [ext_resource type="Script" path="res://script/chessboard/pieces.gd" id="17_8pd8q"]
-[ext_resource type="PackedScene" uid="uid://bxo5dkid64jd3" path="res://sceen/promotion.tscn" id="18_3ke72"]
+[ext_resource type="PackedScene" uid="uid://cop4itfknywqh" path="res://sceen/promotion.tscn" id="18_3ke72"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m20je"]
 texture = ExtResource("1_vf4ta")
