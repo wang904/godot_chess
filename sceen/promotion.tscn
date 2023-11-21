@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxo5dkid64jd3"]
+
+[ext_resource type="Script" path="res://script/promotion/promotion.gd" id="1_tb005"]
+[ext_resource type="Texture2D" uid="uid://crajtqedkwy26" path="res://img/alpha/wQ.png" id="1_v26p2"]
+[ext_resource type="Texture2D" uid="uid://dhxta4ir2ebns" path="res://img/alpha/wN.png" id="2_v7bwk"]
+[ext_resource type="Texture2D" uid="uid://d3i45eekty43j" path="res://img/alpha/wR.png" id="3_xt27c"]
+[ext_resource type="Texture2D" uid="uid://c7ishfg2625gs" path="res://img/alpha/wB.png" id="4_2cvy2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4cyl"]
+bg_color = Color(0.607843, 0.623529, 0.32549, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="promotion" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tb005")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 280.0
+offset_right = 496.0
+offset_bottom = 360.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_r4cyl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 280.0
+offset_right = 492.0
+offset_bottom = 360.0
+
+[node name="queen" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_v26p2")
+
+[node name="knight" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_v7bwk")
+
+[node name="rock" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_xt27c")
+
+[node name="bishop" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_2cvy2")
+
+[connection signal="pressed" from="HBoxContainer/queen" to="." method="_on_queen_pressed"]
+[connection signal="pressed" from="HBoxContainer/knight" to="." method="_on_knight_pressed"]
+[connection signal="pressed" from="HBoxContainer/rock" to="." method="_on_rock_pressed"]
+[connection signal="pressed" from="HBoxContainer/bishop" to="." method="_on_bishop_pressed"]
