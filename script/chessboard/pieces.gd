@@ -25,6 +25,8 @@ var promotion : Control = null
 var player : bool = true
 var promoted_position : Vector2i = Vector2i.ZERO
 
+var moves = []
+
 func _ready():
 	promotion = get_tree().get_root().get_node("chessboard").get_node("promotion")
 
@@ -77,6 +79,11 @@ func check_white_pawn(clicked_cell) -> bool:
 		#这里不用判断吃自己子因为已经在can_move里面判断了
 		if has_piece(clicked_cell):
 			return true
+		var temp = Vector2i(clicked_cell.x,clicked_cell.y + 1)
+		var temp1 = Vector2i(clicked_cell.x,clicked_cell.y - 1)
+		if has_piece(temp) and moves.back()[1] == temp and moves.back()[0] == temp1 and moves.back()[2] == Cells.BLACK_PAWN:
+			set_cell(0,temp)
+			return true
 	return false
 
 func check_black_pawn(clicked_cell) -> bool:
@@ -88,6 +95,12 @@ func check_black_pawn(clicked_cell) -> bool:
 	if abs(last_piece_position.x - clicked_cell.x) == 1 and clicked_cell.y - last_piece_position.y == 1:
 		#这里不用判断吃自己子因为已经在can_move里面判断了
 		if has_piece(clicked_cell):
+			return true
+		#吃过路兵
+		var temp = Vector2i(clicked_cell.x,clicked_cell.y - 1)
+		var temp1 = Vector2i(clicked_cell.x,clicked_cell.y + 1)
+		if has_piece(temp) and moves.back()[1] == temp and moves.back()[0] == temp1 and moves.back()[2] == Cells.WHITE_PAWN:
+			set_cell(0,temp)
 			return true
 	return false
 
@@ -199,6 +212,7 @@ func make_move() -> bool:
 		set_cell(0,clicked_cell,last_piece_col,Vector2i(0,0))
 		set_cell(0,last_piece_position)
 		check_promoted(clicked_cell)
+		moves.append([last_piece_position,clicked_cell,last_piece_col])
 		ok = true
 		last_piece_col = Cells.EMPTY
 		last_piece_position = Vector2i(-1,-1)
