@@ -8,6 +8,7 @@ var last_clicked_cell : Vector2i = Vector2i(-1,-1)
 var last_clicked_col : Cells = Cells.WHITE
 var promotion : Control = null
 
+
 func _ready():
 	promotion = get_tree().get_root().get_node("chessboard").get_node("promotion")
 #高亮选中的格子
