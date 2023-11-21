@@ -6,7 +6,10 @@ enum Cells{
 #上一次被更换的
 var last_clicked_cell : Vector2i = Vector2i(-1,-1)
 var last_clicked_col : Cells = Cells.WHITE
+var promotion : Control = null
 
+func _ready():
+	promotion = get_tree().get_root().get_node("chessboard").get_node("promotion")
 #高亮选中的格子
 func tileChangeColor_focus():
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
@@ -20,6 +23,6 @@ func tileChangeColor_focus():
 func _input(event):
 	if event is InputEventMouseButton:
 		#左键按下
-		if event.button_index == 1 and event.pressed:
+		if event.button_index == 1 and event.pressed and not promotion.visible:
 			tileChangeColor_focus()
 		

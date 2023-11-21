@@ -20,8 +20,37 @@ enum Cells{
 var last_piece_position: Vector2i = Vector2i(-1,-1)
 var last_piece_col : Cells = Cells.EMPTY
 
+var promotion : Control = null
 #true -> white false -> black
 var player : bool = true
+var promoted_position : Vector2i = Vector2i.ZERO
+
+func _ready():
+	promotion = get_tree().get_root().get_node("chessboard").get_node("promotion")
+
+func promot(type):
+	promotion.visible = false
+	if get_cell_source_id(0,promoted_position) < 6:
+		match type:
+			"queen":
+				set_cell(0,promoted_position,Cells.BLACK_QUEEN,Vector2i(0,0))
+			"knight":
+				set_cell(0,promoted_position,Cells.BLACK_KNIGHT,Vector2i(0,0))
+			"bishop":
+				set_cell(0,promoted_position,Cells.BLACK_BISHOP,Vector2i(0,0))
+			"rock":
+				set_cell(0,promoted_position,Cells.BLACK_ROCK,Vector2i(0,0))
+	else:
+		match type:
+			"queen":
+				set_cell(0,promoted_position,Cells.WHITE_QUEEN,Vector2i(0,0))
+			"knight":
+				set_cell(0,promoted_position,Cells.WHITE_KNIGHT,Vector2i(0,0))
+			"bishop":
+				set_cell(0,promoted_position,Cells.WHITE_BISHOP,Vector2i(0,0))
+			"rock":
+				set_cell(0,promoted_position,Cells.WHITE_ROCK,Vector2i(0,0))
+	player = not player
 
 func select_piece():
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
@@ -67,7 +96,6 @@ func check_knight(clicked_cell) -> bool:
 	var deltaX = [2, 1,-1,-2,-2,-1, 1, 2]
 	var deltaY = [1, 2, 2, 1,-1,-2,-2,-1];
 	for i in range(8):
-		print(deltaX[i]," ",deltaY[i])
 		if Vector2i(last_piece_position.x + deltaX[i],last_piece_position.y + deltaY[i]) == clicked_cell:
 			return true
 	return false
@@ -75,7 +103,6 @@ func check_knight(clicked_cell) -> bool:
 func check_rock(clicked_cell) -> bool:
 	if last_piece_position.x == clicked_cell.x:
 		for i in range(min(last_piece_position.y,clicked_cell.y) + 1,max(last_piece_position.y,clicked_cell.y)):
-			print(i)
 			if has_piece(Vector2i(clicked_cell.x,i)):
 				return false
 		return true
@@ -159,6 +186,11 @@ func can_move(clicked_cell) -> bool:
 				return false
 	return true
 
+func check_promoted(clicked_cell):
+	if (player and clicked_cell.y == 0 and get_cell_source_id(0,clicked_cell) == Cells.WHITE_PAWN) or (not player and clicked_cell.y == 7 and get_cell_source_id(0,clicked_cell) == Cells.BLACK_PAWN):
+		promotion.visible = true
+		promoted_position = clicked_cell
+
 #返回值代表移动是否成功
 func make_move() -> bool:
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
@@ -166,13 +198,14 @@ func make_move() -> bool:
 	if can_move(clicked_cell):
 		set_cell(0,clicked_cell,last_piece_col,Vector2i(0,0))
 		set_cell(0,last_piece_position)
+		check_promoted(clicked_cell)
 		ok = true
 		last_piece_col = Cells.EMPTY
 		last_piece_position = Vector2i(-1,-1)
 	return ok
 		
 func handle_left_button():
-	if last_piece_col == Cells.EMPTY:
+	if last_piece_col == Cells.EMPTY and not promotion.visible:
 		select_piece()
 	elif make_move():
 		player = not player
