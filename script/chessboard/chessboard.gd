@@ -19,7 +19,8 @@ func tileChangeColor_focus():
 	last_clicked_cell = clicked_cell
 	#把上一次点击的颜色记录
 	last_clicked_col = get_cell_source_id(0,clicked_cell)
-	set_cell(0,clicked_cell,Cells.YELLOW,Vector2i(0,0))
+	if clicked_cell.x >= 0 and clicked_cell.x <= 7 and clicked_cell.y >= 0 and clicked_cell.y <= 7:
+		set_cell(0,clicked_cell,Cells.YELLOW,Vector2i(0,0))
 
 func _input(event):
 	if event is InputEventMouseButton:

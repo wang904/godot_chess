@@ -207,12 +207,13 @@ func check_promoted(clicked_cell):
 #返回值代表移动是否成功
 func make_move() -> bool:
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
+	var cell_id : Cells = get_cell_source_id(0,clicked_cell)
 	var ok : bool = false
 	if can_move(clicked_cell):
 		set_cell(0,clicked_cell,last_piece_col,Vector2i(0,0))
 		set_cell(0,last_piece_position)
 		check_promoted(clicked_cell)
-		moves.append([last_piece_position,clicked_cell,last_piece_col])
+		moves.append([last_piece_position,clicked_cell,last_piece_col,cell_id])
 		ok = true
 		last_piece_col = Cells.EMPTY
 		last_piece_position = Vector2i(-1,-1)

@@ -14,3 +14,8 @@ config/name="Chess"
 run/main_scene="res://sceen/chessboard.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
