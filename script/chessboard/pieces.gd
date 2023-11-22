@@ -309,7 +309,6 @@ func make_move() -> bool:
 	var cell_id : Cells = get_cell_source_id(0,clicked_cell)
 	var ok : bool = false
 	if check_change(clicked_cell,cell_id):
-		print("ok")
 		set_cell(0,last_piece_position)
 		set_cell(0,clicked_cell)
 		var king : Vector2i
@@ -331,9 +330,12 @@ func make_move() -> bool:
 		if player:
 			set_cell(0,king,Cells.WHITE_KING,Vector2i(0,0))
 			set_cell(0,rock,Cells.WHITE_ROCK,Vector2i(0,0))
+			moves.append([Vector2i(-1,-1),last_piece_position,clicked_cell,king,rock,Cells.WHITE_KING,Cells.WHITE_ROCK])
 		else:
 			set_cell(0,king,Cells.BLACK_KING,Vector2i(0,0))
 			set_cell(0,rock,Cells.BLACK_ROCK,Vector2i(0,0))
+			moves.append([Vector2i(-1,-1),last_piece_position,clicked_cell,king,rock,Cells.BLACK_KING,Cells.BLACK_ROCK])
+
 		ok = true
 	elif can_move(clicked_cell):
 		set_cell(0,clicked_cell,last_piece_col,Vector2i(0,0))
@@ -347,7 +349,6 @@ func make_move() -> bool:
 		
 func handle_left_button():
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
-	print(clicked_cell)
 	if last_piece_col == Cells.EMPTY and not promotion.visible:
 		select_piece()
 	elif make_move():
