@@ -231,12 +231,111 @@ func check_promoted(clicked_cell):
 		promotion.visible = true
 		promoted_position = clicked_cell
 
+func check_king_move_white() -> bool:
+	for bl in moves:
+		if bl[2] == Cells.WHITE_KING:
+			return false
+	return true
+func check_rock_move_white(pos):
+	for bl in moves:
+		if bl[0] == pos and bl[2] == Cells.WHITE_ROCK:
+			return false
+	return true
+func check_king_move_black() -> bool:
+	for bl in moves:
+		if bl[2] == Cells.BLACK_KING:
+			return false
+	return true
+func check_rock_move_black(pos):
+	for bl in moves:
+		if bl[0] == pos and bl[2] == Cells.BLACK_ROCK:
+			return false
+	return true
+func check_white_change(last,last_col,now,now_col) -> bool:
+	if last_col != Cells.WHITE_KING or now_col != Cells.WHITE_ROCK:
+		return false
+	if last != Vector2i(4,7):
+		return false
+	if now != Vector2i(0,7) and now != Vector2i(7,7):
+		return false
+	if not check_king_move_white():
+		return false
+	if not check_rock_move_white(now):
+		return false
+	if now == Vector2i(0,7):
+		if attack(Vector2i(1,7),player) or attack(Vector2i(2,7),player) or attack(Vector2i(3,7),player):
+			return false	
+		if has_piece(Vector2i(1,7)) or has_piece(Vector2i(2,7)) or has_piece(Vector2i(3,7)):
+			return false
+	else:
+		if attack(Vector2i(5,7),player) or attack(Vector2i(6,7),player):
+			return false
+		if has_piece(Vector2i(5,7)) or has_piece(Vector2i(6,7)):
+			return false
+	return true
+
+func check_black_change(last,last_col,now,now_col) -> bool:
+	if last_col != Cells.BLACK_KING or now_col != Cells.BLACK_ROCK:
+		return false
+	if last != Vector2i(4,0):
+		return false
+	if now != Vector2i(0,0) and now != Vector2i(7,0):
+		return false
+	if not check_king_move_black():
+		return false
+	if not check_rock_move_black(now):
+		return false
+	if now == Vector2i(0,0):
+		if attack(Vector2i(1,0),player) or attack(Vector2i(2,0),player) or attack(Vector2i(3,0),player):
+			return false
+		if has_piece(Vector2i(1,0)) or has_piece(Vector2i(2,0)) or has_piece(Vector2i(3,0)):
+			return false
+	else:
+		if attack(Vector2i(5,0),player) or attack(Vector2i(6,0),player):
+			return false
+		if has_piece(Vector2i(5,0)) or has_piece(Vector2i(6,0)):
+			return false
+	return true
+
+func check_change(clicked_cell,cell_id) -> bool:
+	if player:
+		return check_white_change(last_piece_position,last_piece_col,clicked_cell,cell_id)
+	else:
+		return check_black_change(last_piece_position,last_piece_col,clicked_cell,cell_id)
+
 #返回值代表移动是否成功
 func make_move() -> bool:
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
 	var cell_id : Cells = get_cell_source_id(0,clicked_cell)
 	var ok : bool = false
-	if can_move(clicked_cell):
+	if check_change(clicked_cell,cell_id):
+		print("ok")
+		set_cell(0,last_piece_position)
+		set_cell(0,clicked_cell)
+		var king : Vector2i
+		var rock : Vector2i
+		if last_piece_position == Vector2i(4,0):
+			if clicked_cell == Vector2i(0,0):
+				king = Vector2i(2,0)
+				rock = Vector2i(3,0)
+			if clicked_cell == Vector2i(7,0):
+				king = Vector2i(6,0)
+				rock = Vector2i(5,0)
+		if last_piece_position == Vector2i(4,7):
+			if clicked_cell == Vector2i(0,7):
+				king = Vector2i(2,7)
+				rock = Vector2i(3,7)
+			if clicked_cell == Vector2i(7,7):
+				king = Vector2i(6,7)
+				rock = Vector2i(5,7)
+		if player:
+			set_cell(0,king,Cells.WHITE_KING,Vector2i(0,0))
+			set_cell(0,rock,Cells.WHITE_ROCK,Vector2i(0,0))
+		else:
+			set_cell(0,king,Cells.BLACK_KING,Vector2i(0,0))
+			set_cell(0,rock,Cells.BLACK_ROCK,Vector2i(0,0))
+		ok = true
+	elif can_move(clicked_cell):
 		set_cell(0,clicked_cell,last_piece_col,Vector2i(0,0))
 		set_cell(0,last_piece_position)
 		check_promoted(clicked_cell)
@@ -248,7 +347,7 @@ func make_move() -> bool:
 		
 func handle_left_button():
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
-	print(attack(clicked_cell,player))
+	print(clicked_cell)
 	if last_piece_col == Cells.EMPTY and not promotion.visible:
 		select_piece()
 	elif make_move():
