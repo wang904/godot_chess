@@ -349,6 +349,8 @@ func make_move() -> bool:
 		
 func handle_left_button():
 	var clicked_cell : Vector2i = local_to_map(get_local_mouse_position())
+	if clicked_cell.x > 7 or clicked_cell.y > 7 or clicked_cell.x < 0 or clicked_cell.y < 0:
+		return
 	if last_piece_col == Cells.EMPTY and not promotion.visible:
 		select_piece()
 	elif make_move():
